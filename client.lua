@@ -7,6 +7,7 @@ POSITIONS.marker.y = 0.0
 POSITIONS.marker.z = 0.0
 POSITIONS.marker.h = 0.0
 POSITIONS.marker.r = 1.0
+POSITIONS.marker.o = 1
 
 POSITIONS.start = function () 
     if POSITIONS.marker.active then return end
@@ -37,84 +38,97 @@ end
 Citizen.CreateThread(function () 
     while true do 
         Citizen.Wait(0)
-        if (IsControlJustReleased(1, 29)) then
-            POSITIONS.start()
-        end
-        
-        if (IsControlPressed(1, 172)) then -- ARROW UP
-            POSITIONS.marker.x = POSITIONS.marker.x + 0.01
-        end
+		
+		if (IsControlJustReleased(1, 29)) then -- Press B
+			POSITIONS.start()
+		end
+		
+		if(POSITIONS.marker.active) then	
+			if (IsControlPressed(1, 172)) then -- ARROW UP
+				POSITIONS.marker.x = POSITIONS.marker.x + 0.01
+			end
 
-        if (IsControlPressed(1, 173)) then -- ARROW DOWN
-            POSITIONS.marker.x = POSITIONS.marker.x - 0.01
-        end
+			if (IsControlPressed(1, 173)) then -- ARROW DOWN
+				POSITIONS.marker.x = POSITIONS.marker.x - 0.01
+			end
 
-        if (IsControlPressed(1, 174)) then -- ARROW LEFT
-            POSITIONS.marker.y = POSITIONS.marker.y + 0.01
-        end
+			if (IsControlPressed(1, 174)) then -- ARROW LEFT
+				POSITIONS.marker.y = POSITIONS.marker.y + 0.01
+			end
 
-        if (IsControlPressed(1, 175)) then -- ARROW RIGHT
-            POSITIONS.marker.y = POSITIONS.marker.y - 0.01
-        end
-        
-        if (IsControlPressed(1, 10)) then -- PAGE UP
-            POSITIONS.marker.z = POSITIONS.marker.z + 0.01
-        end
+			if (IsControlPressed(1, 175)) then -- ARROW RIGHT
+				POSITIONS.marker.y = POSITIONS.marker.y - 0.01
+			end
+			
+			if (IsControlPressed(1, 10)) then -- PAGE UP
+				POSITIONS.marker.z = POSITIONS.marker.z + 0.01
+			end
 
-        if (IsControlPressed(1, 11)) then --PAGE DOWN
-            POSITIONS.marker.z = POSITIONS.marker.z - 0.01
-        end
+			if (IsControlPressed(1, 11)) then --PAGE DOWN
+				POSITIONS.marker.z = POSITIONS.marker.z - 0.01
+			end
 
-        if (IsControlPressed(1, 108)) then -- NUMPAD 4
-            POSITIONS.marker.h = POSITIONS.marker.h + 0.5
-            if POSITIONS.marker.h > 360 then 
-                POSITIONS.marker.h = 0.0
-            elseif POSITIONS.marker.h < 0 then  
-                POSITIONS.marker.h = 360.0
-            end
-        end
+			if (IsControlPressed(1, 108)) then -- NUMPAD 4
+				POSITIONS.marker.h = POSITIONS.marker.h + 0.5
+				if POSITIONS.marker.h > 360 then 
+					POSITIONS.marker.h = 0.0
+				elseif POSITIONS.marker.h < 0 then  
+					POSITIONS.marker.h = 360.0
+				end
+			end
 
-        if (IsControlPressed(1, 109)) then -- NUMPAD 6
-            POSITIONS.marker.h = POSITIONS.marker.h - 0.5
-            if POSITIONS.marker.h > 360 then 
-                POSITIONS.marker.h = 0.0
-            elseif POSITIONS.marker.h < 0 then  
-                POSITIONS.marker.h = 360.0
-            end
-        end
+			if (IsControlPressed(1, 109)) then -- NUMPAD 6
+				POSITIONS.marker.h = POSITIONS.marker.h - 0.5
+				if POSITIONS.marker.h > 360 then 
+					POSITIONS.marker.h = 0.0
+				elseif POSITIONS.marker.h < 0 then  
+					POSITIONS.marker.h = 360.0
+				end
+			end
 
-        if (IsControlPressed(1, 96)) then -- NUMPAD +
-            POSITIONS.marker.r = POSITIONS.marker.r + 0.05
-            Citizen.Wait(10)
-        end
+			if (IsControlPressed(1, 181)) then -- Scroll Wheel Up +
+				POSITIONS.marker.r = POSITIONS.marker.r + 0.05
+				Citizen.Wait(10)
+			end
 
-        if (IsControlPressed(1, 97)) then --NUMPAD -
-            POSITIONS.marker.r = POSITIONS.marker.r - 0.05
-            Citizen.Wait(10)
-        end
+			if (IsControlPressed(1, 180)) then --Scroll Wheel Up
+				POSITIONS.marker.r = POSITIONS.marker.r - 0.05
+				Citizen.Wait(10)
+			end
+			
+			if (IsControlPressed(1, 314) and POSITIONS.marker.o < 43) then -- NUMPAD +
+				POSITIONS.marker.o = POSITIONS.marker.o + 1
+				Citizen.Wait(200)
+			end
 
-        if (IsControlJustReleased(1, 176)) then -- ENTER
-            local text = "{x = "..POSITIONS.marker.x..", y = "..POSITIONS.marker.y..", z = "..POSITIONS.marker.z..", h = "..POSITIONS.marker.h..", r = "..POSITIONS.marker.r.."},"
-            subTitle(text)
+			if (IsControlPressed(1, 315) and POSITIONS.marker.o > 1) then --NUMPAD -
+				POSITIONS.marker.o = POSITIONS.marker.o - 1
+				Citizen.Wait(200)
+			end
 
-            TriggerServerEvent("position:s:insert", text)
-            
-            POSITIONS.marker.x = 0.0
-            POSITIONS.marker.y = 0.0
-            POSITIONS.marker.z = 0.0
-            POSITIONS.marker.h = 0.0
-            POSITIONS.marker.active = false
+			if (IsControlJustReleased(1, 176)) then -- ENTER
+				local text = "{o = "..POSITIONS.marker.o..", x = "..POSITIONS.marker.x..", y = "..POSITIONS.marker.y..", z = "..POSITIONS.marker.z..", h = "..POSITIONS.marker.h..", r = "..POSITIONS.marker.r.."},"
+				subTitle(text)
 
-            subTitle("Position saved !")
-        end
+				TriggerServerEvent("position:s:insert", text)
+				
+				POSITIONS.marker.x = 0.0
+				POSITIONS.marker.y = 0.0
+				POSITIONS.marker.z = 0.0
+				POSITIONS.marker.h = 0.0
+				POSITIONS.marker.active = false
 
-        if (IsControlJustReleased(1, 177)) then
-            POSITIONS.marker.x = 0.0
-            POSITIONS.marker.y = 0.0
-            POSITIONS.marker.z = 0.0
-            POSITIONS.marker.h = 0.0
-            POSITIONS.marker.active = false
-        end
+				subTitle("Position saved !")
+			end
+
+			if (IsControlJustReleased(1, 177)) then
+				POSITIONS.marker.x = 0.0
+				POSITIONS.marker.y = 0.0
+				POSITIONS.marker.z = 0.0
+				POSITIONS.marker.h = 0.0
+				POSITIONS.marker.active = false
+			end
+		end
     end 
 end)
 
@@ -122,9 +136,9 @@ Citizen.CreateThread(function ()
     while true do 
         Citizen.Wait(0)
         if POSITIONS.marker.active then
-            DrawMarker(26, POSITIONS.marker.x, POSITIONS.marker.y, POSITIONS.marker.z, 0, 0, 0, 0, 0, POSITIONS.marker.h, POSITIONS.marker.r, POSITIONS.marker.r, 0.5, 0, 0, 255, 120, 0, 0, 2, 0, 0, 0, 0)
+            DrawMarker(POSITIONS.marker.o, POSITIONS.marker.x, POSITIONS.marker.y, POSITIONS.marker.z, 0, 0, 0, 0, 0, POSITIONS.marker.h, POSITIONS.marker.r, POSITIONS.marker.r, 0.5, 0, 0, 255, 120, 0, 0, 2, 0, 0, 0, 0)
             
-            local text = "{x = "..POSITIONS.marker.x..", y = "..POSITIONS.marker.y..", z = "..POSITIONS.marker.z..", h = "..POSITIONS.marker.h..", r = "..POSITIONS.marker.r.."},"
+            local text = "{o = "..POSITIONS.marker.o..", x = "..POSITIONS.marker.x..", y = "..POSITIONS.marker.y..", z = "..POSITIONS.marker.z..", h = "..POSITIONS.marker.h..", r = "..POSITIONS.marker.r.."},"
             subTitle(text)
         end
     end 
