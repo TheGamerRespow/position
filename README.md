@@ -2,7 +2,7 @@ _First of all, I don't know how to name that fucking script._
 
 Hi my name is Piter Van Rujpen or Respow or TheGamerRespow, take the one that you prefer.
 
-About a week ago I made a simple script to get the coordinates of a certain position and I know what you'll tell me : "Bruhhh... Lamba Menu already does it". But does the Lamba Menu gives you the heading and the radius of a marker, a marker that you can anywhere you want to get a precise position ? I don't think so.
+About a week ago I made a simple script to get the coordinates of a certain position and I know what you'll tell me : "Bruhhh... Lamba Menu already does it". But does the Lamba Menu gives you the heading and the radius of a marker, a marker that you can place anywhere you want to get a precise position ? I don't think so.
 
 **How to use it**
 
