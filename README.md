@@ -10,7 +10,8 @@ About a week ago I made a simple script to get the coordinates of a certain posi
 - Press any arrow to move arround the marker. 
 - Press "PAGE UP" and "PAGE DOWN" to change to height of the marker.
 - Press "'NUMPAD 4" and "NUMPAD 6" to rotate/change the heading of the marker.
-- Press "NUMPAD +"  and "NUMPAD -" to change the radius of the marker.
+- Press "NUMPAD +"  and "NUMPAD -" to change the marker style
+- Press "Scroll Wheel Up"  and "Scroll Wheel Down" to change the radius of the marker.
 - Press "'ENTER" to save the position in the _positions.txt_ file (this one is located in the server folder, and it will be always cleared when you restart the server).
 
 - You can also press "BACKSPACE" to cancel the process.
